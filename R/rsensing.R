@@ -99,6 +99,40 @@ toGeoTIFF <- function(input.path, output.path) {
   system2('gdal_translate.exe', args = (sprintf('"%1$s" "%2$s"', input.path, output.path)), stdout = F)
 }
 
+#' gdal_fillnodata
+#'
+#' \code{gdal_fillnodata} is a tiny \code{gdal_fillnodata.py} wrapper from the GDAL library tools.
+#'
+#' The aim is just to convert the given image and mask into a filled raster.
+#'
+#' It has a dependency on GDAL Tools to be installed
+#'
+#' @param image the raster object to be processed, just one band.
+#' @param mask the mask raster with zeroes and ones. It should be a binary mask.
+#'
+#' @import raster sp
+#' @export
+#'
+#' @examples
+#' gdal_fillnodata(oneBandRaster, binaryMask)
+#'
+gdal_fillnodata <- function(image, mask) {
+  gdal_fillnodata.location <- Sys.which('gdal_fillnodata.py')
+  python.location <- Sys.which('python')
+
+  path.mask <- file.path(tempdir(), 'mask.tif')
+  path.input <- file.path(tempdir(), 'input.tif')
+  path.output <- paste0(tempfile(), '.tif')
+
+  writeRaster(x = mask, filename = path.mask, format = "GTiff", datatype = 'INT1U', overwrite = TRUE)
+  writeRaster(x = image, filename = path.input, format = "GTiff", overwrite = TRUE)
+
+  system(sprintf('%s %s -mask %s -of GTiff %s %s', python.location, gdal_fillnodata.location, path.mask, path.input, path.output))
+
+  file.remove(path.mask, path.input)
+  return(raster(path.output))
+}
+
 # devtools::use_package("rgdal")
 # devtools::use_package('maptools')
 # devtools::use_package('sp')
