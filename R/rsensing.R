@@ -202,6 +202,7 @@ shapeInterpolation <- function(shape, field, cellsize, shape.mask = NULL, showPe
 #' @param na.rm Optional. Logical. If na.rm=TRUE, NA values are removed
 #'
 #' @importFrom stats sd
+#' @export
 #'
 #' @return statistics. Mean, min, max, sd and number of pixels.
 #'
