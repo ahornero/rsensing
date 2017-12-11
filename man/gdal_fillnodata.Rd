@@ -4,22 +4,23 @@
 \alias{gdal_fillnodata}
 \title{gdal_fillnodata}
 \usage{
-gdal_fillnodata(image, mask)
+gdal_fillnodata(raster, mask)
 }
 \arguments{
-\item{image}{the raster object to be processed, just one band.}
+\item{raster}{Raster. The raster object to be processed, just one band.}
 
-\item{mask}{the mask raster with zeroes and ones. It should be a binary mask.}
+\item{mask}{Raster. The raster mask with zeroes and ones. It should be a binary mask.}
 }
 \description{
 \code{gdal_fillnodata} is a tiny \code{gdal_fillnodata.py} wrapper from the GDAL library tools.
 }
 \details{
-The aim is just to convert the given image and mask into a filled raster.
+The aim is just to convert the given raster and mask into a filled raster.
 
 It has a dependency on GDAL Tools to be installed
 }
 \examples{
-gdal_fillnodata(oneBandRaster, binaryMask)
-
+\dontrun{
+gdal_fillnodata(raster, binaryMask)
+}
 }

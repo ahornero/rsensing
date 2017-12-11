@@ -1,11 +1,18 @@
 Package: rsensing
 Type: Package
-Title: RemoteSensing
-Version: 0.1.0
+Title: Remote Sensing
+Version: 0.2
 Author: Alberto Hornero
 Maintainer: Alberto Hornero <alberto@hornero.es>
-Description: Remote Sensing and GIS tools for R
+Description: Remote Sensing and GIS tools for R.
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
+LazyData: false
 RoxygenNote: 6.0.1
+Imports: parallel,
+    rgdal,
+    raster,
+    sp,
+    methods,
+    gstat,
+    stats

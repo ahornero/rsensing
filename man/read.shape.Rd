@@ -7,7 +7,10 @@
 read.shape(shape.path)
 }
 \arguments{
-\item{shape.path}{the path of the shapefile.}
+\item{shape.path}{Character. Shapefile path}
+}
+\value{
+a spatial object.
 }
 \description{
 \code{read.shape} is an easier alternative to \link{readOGR}.
@@ -17,6 +20,7 @@ This is an alternative function to \link{readOGR}, which pretends to be the easi
 to load shapefiles.
 }
 \examples{
+\dontrun{
 read.shape('./myshapefile.shp')
-
+}
 }

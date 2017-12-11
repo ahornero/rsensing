@@ -4,12 +4,14 @@
 \alias{write.shape}
 \title{write.shape}
 \usage{
-write.shape(shape, shape.path)
+write.shape(shape, shape.path, overwrite = FALSE)
 }
 \arguments{
-\item{shape}{the spatial object to be saved.}
+\item{shape}{Shapefile. Spatial object to be saved.}
 
-\item{shape.path}{the path where it should be written.}
+\item{shape.path}{Character. Path where it should be written.}
+
+\item{overwrite}{Logical. force overwrite or not.}
 }
 \description{
 \code{write.shape} is an easier alternative to \link{writeOGR}.
@@ -19,6 +21,7 @@ This is an alternative function to \link{writeOGR}, which pretends to be the eas
 to write shapefiles.
 }
 \examples{
+\dontrun{
 write.shape(shapeObject, './myshapefile.shp')
-
+}
 }

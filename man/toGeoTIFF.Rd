@@ -7,9 +7,9 @@
 toGeoTIFF(input.path, output.path)
 }
 \arguments{
-\item{input.path}{the raster object to be converted.}
+\item{input.path}{Character. The raster object path to be converted.}
 
-\item{output.path}{the path where it should be written.}
+\item{output.path}{Character. The path where it should be written.}
 }
 \description{
 \code{toGeoTIFF} is a tiny \code{gdal_translate} wrapper.
