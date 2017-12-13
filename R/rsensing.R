@@ -1,6 +1,6 @@
 #' extractRasterLayer
 #'
-#' \code{extractRasterLayer} extract data from a raster layer with a given polygon shape. It support multicore processing
+#' \code{extractRasterLayer} extracts data from a raster layer with a given polygon shape. It support multicore processing
 #' through the \link{parallel} package and clustering with a default cellsize of 100 meters.
 #'
 #' @param raster Raster. Raster to be extracted
@@ -82,7 +82,7 @@ extractRasterLayer <- function(raster, shape, multicore = TRUE, gsize = 100, sho
 
 #' extractRasterStack
 #'
-#' \code{extractRasterStack} extract data from a raster stack with a given polygon shape. It support multicore processing
+#' \code{extractRasterStack} extracts data from a raster stack with a given polygon shape. It support multicore processing
 #' through the \link{parallel} package and clustering with a default cellsize of 100 meters. It returns the same as
 #' \link{extractRasterLayer} but it also works with multiband raster (\link{stack} or \link{brick}) and extract the
 #' wavelengths from the file if exist.
@@ -358,6 +358,62 @@ read.shape <- function(shape.path) {
 #' }
 write.shape <- function(shape, shape.path, overwrite = FALSE) {
   rgdal::writeOGR(obj = shape, dsn = dirname(shape.path), layer = sub('\\..*$', '', basename(shape.path)), driver = "ESRI Shapefile", overwrite_layer = overwrite)
+}
+
+#' genLUT
+#'
+#' \code{genLUT} generates a Lookup table with given parameters. This is very useful when you are generating a data entry for
+#' RTM inversion
+#'
+#' @param ... At least 2 parameters or a list composed by 2 parameters are needed. It could be an array of numbers or characters.
+#'
+#' @return a matrix which is indeed the Lookup Table
+#'
+#' @export
+#'
+#' @examples
+#' genLUT(Cab = 10:30, LAI = seq(0, 0.05, 0.01), Car = runif(10, 2.0, 3.5))
+genLUT <- function(...) {
+  # repeat a row n times
+  rep.row <- function(x,n){
+    matrix(rep(x, each = n), nrow = n)
+  }
+
+  # main recursive function
+  genLUT0 <- function(...) {
+    vars <- list(...)
+
+    # if ellipsis contains one parameter and it's a list we should restore it
+    if (length(vars) == 1) {
+      if (class(vars[[1]]) == 'list')
+        vars = vars[[1]]
+    }
+
+    # Error reporting. We need at least 2 parameters
+    if (length(vars) < 2)
+      stop('At least 2 parameters or a list composed by 2 parameters are needed')
+
+    if (length(vars) > 2)
+      return(genLUT0(genLUT0(vars[-length(vars)]), vars[[length(vars)]]))
+
+    x <- vars[[1]]
+    y <- vars[[2]]
+
+    if (class(x) == 'matrix') {
+      list.df <- lapply(1:nrow(x), function(i) { cbind(x = rep.row(x[i,], length(y)), y)})
+    } else {
+      list.df <- lapply(1:length(x), function(i) { cbind(x = rep(x[i], length(y)), y)})
+    }
+    df <- do.call(rbind, list.df)
+
+    return(df)
+  }
+
+  vars <- list(...)
+  lut <- genLUT0(...)
+  colnames(lut) <- names(vars)
+
+  return(lut)
 }
 
 # devtools::use_package('parallel')

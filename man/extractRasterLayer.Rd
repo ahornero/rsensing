@@ -26,7 +26,7 @@ extractRasterLayer(raster, shape, multicore = TRUE, gsize = 100,
 a data.frame or a Spatial object.
 }
 \description{
-\code{extractRasterLayer} extract data from a raster layer with a given polygon shape. It support multicore processing
+\code{extractRasterLayer} extracts data from a raster layer with a given polygon shape. It support multicore processing
 through the \link{parallel} package and clustering with a default cellsize of 100 meters.
 }
 \examples{

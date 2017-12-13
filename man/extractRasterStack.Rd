@@ -26,7 +26,7 @@ extractRasterStack(raster, shape, multicore = TRUE, gsize = 100,
 a data.frame or a Spatial object.
 }
 \description{
-\code{extractRasterStack} extract data from a raster stack with a given polygon shape. It support multicore processing
+\code{extractRasterStack} extracts data from a raster stack with a given polygon shape. It support multicore processing
 through the \link{parallel} package and clustering with a default cellsize of 100 meters. It returns the same as
 \link{extractRasterLayer} but it also works with multiband raster (\link{stack} or \link{brick}) and extract the
 wavelengths from the file if exist.

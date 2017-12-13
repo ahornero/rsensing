@@ -3,6 +3,7 @@
 export(extractRasterLayer)
 export(extractRasterStack)
 export(gdal_fillnodata)
+export(genLUT)
 export(long2UTM)
 export(polygonize)
 export(read.shape)

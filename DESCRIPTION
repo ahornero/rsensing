@@ -1,7 +1,7 @@
 Package: rsensing
 Type: Package
 Title: Remote Sensing
-Version: 0.2
+Version: 0.3
 Author: Alberto Hornero
 Maintainer: Alberto Hornero <alberto@hornero.es>
 Description: Remote Sensing and GIS tools for R.
